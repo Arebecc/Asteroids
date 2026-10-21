@@ -1,7 +1,7 @@
 import pygame
 import random
 from circleshape import CircleShape
-from constants import ASTEROID_MIN_RADIUS, LINE_WIDTH
+from constants import ASTEROID_MIN_RADIUS, LINE_WIDTH, ASTEROID_MAX_RADIUS
 from logger import log_event
 
 class Asteroid(CircleShape):
@@ -10,7 +10,12 @@ class Asteroid(CircleShape):
         self.rotation = 0
 
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
+        if self.radius == ASTEROID_MIN_RADIUS:
+            pygame.draw.circle(screen, "green", self.position, self.radius, LINE_WIDTH)
+        elif self.radius == ASTEROID_MAX_RADIUS:
+            pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
+        else:
+            pygame.draw.circle(screen, "blue", self.position, self.radius, LINE_WIDTH)
 
     def update(self, dt):
         self.position += self.velocity * dt
